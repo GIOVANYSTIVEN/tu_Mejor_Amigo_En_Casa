@@ -14,12 +14,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/usuario',routerusuariogevt);
-app.use('/api/raza', routerRazagevt);
-app.use('/api/categoria',routerCategoriagevt);
-app.use('/api/genero',routerGenerogevt);
-app.use('/api/mascotas',routermascotasgevt);
+app.use('/api/gevt/auth', authRoutes);
+app.use('/api/gevt/usuario',routerusuariogevt);
+app.use('/api/gevt/raza', routerRazagevt);
+app.use('/api/gevt/categoria',routerCategoriagevt);
+app.use('/api/gevt/genero',routerGenerogevt);
+app.use('/api/gevt/mascotas',routermascotasgevt);
 
 
 app.get('/test', (req, res) => res.send('Servidor funcionando'));
