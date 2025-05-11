@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrar Mascotas - gevt</title>
+  <link rel="stylesheet" href="../../css/mascotas/gevt_mascotas.css">
+</head>
+<body>
+  <div class="contenedor-imagen-gevt">
+    <div class="contenido-vertical-gevt">
+      <div class="barra-superior-gevt">
+        <img src="../../assets/btn-back.svg" alt="Volver" class="btn-superior izquierda" onclick="history.back()">
+        <span class="titulo-centro-gevt">Administrar Mascotas</span>
+        <img src="../../assets/btn-close.svg" alt="Cerrar" class="btn-superior derecha" onclick="window.location.href='../../index.html'">
+      </div>
+      <div class="imagen-foto-gevt">
+        <a href="gevt_adicionarMascota.html">
+          <img src="../../assets/btn-add.svg" alt=" + Adicionar" class="btn-adicionar-img">
+        </a>
+      </div>
+      <div class="lista-mascotas" id="listaMascotas"></div>
+      <p id="mensajeError" class="mensaje-error-gevt"></p>
+    </div>
+  </div>
+  <script type="module" src="../../js/mascotas/gevt_listarMascotas.js"></script>
+</body>
+</html>

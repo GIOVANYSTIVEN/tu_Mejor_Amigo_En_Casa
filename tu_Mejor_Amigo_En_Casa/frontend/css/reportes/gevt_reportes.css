@@ -1,0 +1,43 @@
+.contenedor-principal {
+  display: flex;
+}
+
+.barra-lateral {
+  width: 250px;
+  height: 100vh;
+  background: #1a3c5e;
+}
+
+.contenido {
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #1a3c5e;
+}
+
+canvas {
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+}
+
+#generarPdf {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#generarPdf:hover {
+  background: #218838;
+}

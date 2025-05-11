@@ -12,41 +12,56 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 model Usuarios {
   idusuariosGevt       Int       @id @default(autoincrement())
   Nombre_completoGevt  String 
   CorreoGevt           String    @unique
   PasswordGevt         String
-  
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 }
 
 model Razas {
   idrazasGevt          Int       @id @default(autoincrement())
   NombreGevt           String
-  Mascotas Mascotas[]
+  Mascotas             Mascotas[]
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 }
+
 model Categorias {
   idcategoriasGevt     Int       @id @default(autoincrement())
   NombreGevt           String
-  Mascotas Mascotas[]
-} 
+  Mascotas             Mascotas[]
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
 model Genero {
   idgeneroGevt         Int       @id @default(autoincrement())
   NombreGevt           String
-  Mascotas Mascotas[]
+  Mascotas             Mascotas[]
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 }
+
 enum Estado {
   ADOPTADO 
   PENDIENTE
 }
+
 model Mascotas {
   idmascotasGevt       Int       @id @default(autoincrement())
   NombreGevt           String
   idrazasGevt          Int
   idcategoriasGevt     Int
   idgeneroGevt         Int
-  generoGevt        Genero       @relation(fields: [idgeneroGevt], references: [idgeneroGevt])
-  categoriasGevt    Categorias       @relation(fields: [idcategoriasGevt], references: [idcategoriasGevt])
-  razasGevt         Razas       @relation(fields: [idrazasGevt], references: [idrazasGevt])
+  Genero               Genero    @relation(fields: [idgeneroGevt], references: [idgeneroGevt])
+  Categorias           Categorias @relation(fields: [idcategoriasGevt], references: [idcategoriasGevt])
+  Razas                Razas     @relation(fields: [idrazasGevt], references: [idrazasGevt])
   estado               Estado  
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  Foto                 String?
 }

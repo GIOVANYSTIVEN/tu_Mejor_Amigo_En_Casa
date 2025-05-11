@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes - gevt</title>
+  <link rel="stylesheet" href="../../css/reportes/gevt_reportes.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="contenedor-principal">
+    <div class="barra-lateral">
+      <iframe src="../../components/gevt_sideBar.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="contenido">
+      <h2>Reportes - gevt</h2>
+      <canvas id="graficaMascotasPorRaza"></canvas>
+      <button id="generarPdf">Generar PDF de Mascotas</button>
+    </div>
+  </div>
+  <script type="module" src="../../js/reportes/gevt_reportes.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Razas - gevt</title>
+  <link rel="stylesheet" href="../../css/razas/gevt_razas.css">
+</head>
+<body>
+  <div class="contenedor-principal">
+    <div class="barra-lateral">
+      <iframe src="../../components/gevt_sideBar.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="contenido">
+      <h2>Administrar Razas - gevt</h2>
+      <form id="formRaza">
+        <button type="submit" class="btn-agregar">+ Adicionar</button>
+        <input type="hidden" id="razaId">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+      </form>
+      <ul id="listaRazas" class="lista-razas"></ul>
+    </div>
+  </div>
+  <script type="module" src="../../js/razas/gevt_listarRazas.js"></script>
+</body>
+</html>

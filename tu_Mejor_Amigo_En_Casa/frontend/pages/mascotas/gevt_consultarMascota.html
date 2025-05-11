@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consultar Mascota - gevt</title>
+  <link rel="stylesheet" href="../../css/mascotas/gevt_consultar.css">
+</head>
+<body>
+  <div class="contenedor-imagen-gevt">
+    <div class="contenido-vertical-gevt">
+      <div class="barra-superior-gevt">
+        <img src="../../assets/btn-back.svg" alt="Volver" class="btn-superior izquierda" onclick="history.back()">
+        <span class="titulo-centro-gevt">Consultar Mascota</span>
+        <img src="../../assets/btn-close.svg" alt="Cerrar" class="btn-superior derecha" onclick="window.location.href='../../index.html'">
+      </div>
+      <div class="imagen-foto-gevt">
+        <img src="../../assets/photo-lg-0.svg" alt="Foto vacía" id="mascota-foto" class="mascota-foto-img" />
+      </div>
+      <div class="formulario-gevt">
+        <div class="grupo-formulario-gevt">
+          <img src="../../assets/info-name.svg" alt="Ícono Nombre" class="info-icon">
+          <div class="campo-lectura-gevt" id="nombre"></div>
+        </div>
+        <div class="grupo-formulario-gevt">
+          <img src="../../assets/info-race.svg" alt="Ícono Raza" class="info-icon">
+          <div class="campo-lectura-gevt" id="raza"></div>
+        </div>
+        <div class="grupo-formulario-gevt">
+          <img src="../../assets/info-category.svg" alt="Ícono Categoría" class="info-icon">
+          <div class="campo-lectura-gevt" id="categoria"></div>
+        </div>
+        <div class="grupo-formulario-gevt">
+          <img src="../../assets/info-gender.svg" alt="Ícono Género" class="info-icon">
+          <div class="campo-lectura-gevt" id="genero"></div>
+        </div>
+      </div>
+      <p id="mensajeError" class="mensaje-error-gevt"></p>
+    </div>
+  </div>
+  <script type="module" src="../../js/mascotas/gevt_consultarMascota.js"></script>
+</body>
+</html>

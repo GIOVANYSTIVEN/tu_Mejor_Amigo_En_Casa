@@ -1,32 +1,45 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+ 
+const validarEstado = (estado) => {
+  const estadosValidos = ['ADOPTADO', 'PENDIENTE'];
+  return estadosValidos.includes(estado) ? estado : 'PENDIENTE';
+};
 
 export const crearMascotaGevt = async (req, res) => {
-  const { NombreGevt, idrazasGevt, idcategoriasGevt, idgeneroGevt, estado } = req.body;
   try {
+    const { NombreGevt, idrazasGevt, idcategoriasGevt, idgeneroGevt, estado } = req.body;
+    const Foto = req.file?.filename;
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'Debe subir una imagen' });
+    }
+
     const nuevaMascota = await prisma.mascotas.create({
       data: {
         NombreGevt,
-        idrazasGevt,
-        idcategoriasGevt,
-        idgeneroGevt,
-        estado
+        idrazasGevt: parseInt(idrazasGevt),
+        idcategoriasGevt: parseInt(idcategoriasGevt),
+        idgeneroGevt: parseInt(idgeneroGevt),
+        estado: validarEstado(estado),
+        Foto
       }
     });
     res.json(nuevaMascota);
   } catch (error) {
+    console.error('Error al crear mascota:', error);
     res.status(500).json({ message: 'Error al crear mascota', error: error.message });
   }
 };
-
+ 
 export const listarMascotasGevt = async (req, res) => {
   try {
     const mascotas = await prisma.mascotas.findMany({
       include: {
-        razasGevt: true,
-        categoriasGevt: true,
-        generoGevt: true
+        Razas: true,
+        Categorias: true,
+        Genero: true
       }
     });
     res.json(mascotas);
@@ -41,9 +54,9 @@ export const buscarMascotaGevt = async (req, res) => {
     const mascota = await prisma.mascotas.findUnique({
       where: { idmascotasGevt: parseInt(id) },
       include: {
-        razasGevt: true,
-        categoriasGevt: true,
-        generoGevt: true
+        Razas: true,
+        Categorias: true,
+        Genero: true
       }
     });
     res.json(mascota);
@@ -55,16 +68,22 @@ export const buscarMascotaGevt = async (req, res) => {
 export const actualizarMascotaGevt = async (req, res) => {
   const { id } = req.params;
   const { NombreGevt, idrazasGevt, idcategoriasGevt, idgeneroGevt, estado } = req.body;
+  const Foto = req.file?.filename;
+
   try {
+    const dataActualizada = {
+      NombreGevt,
+      idrazasGevt: parseInt(idrazasGevt),
+      idcategoriasGevt: parseInt(idcategoriasGevt),
+      idgeneroGevt: parseInt(idgeneroGevt),
+      estado: validarEstado(estado), // Validamos el estado
+    };
+
+    if (Foto) dataActualizada.Foto = Foto;
+
     const mascotaActualizada = await prisma.mascotas.update({
       where: { idmascotasGevt: parseInt(id) },
-      data: {
-        NombreGevt,
-        idrazasGevt,
-        idcategoriasGevt,
-        idgeneroGevt,
-        estado
-      }
+      data: dataActualizada
     });
     res.json(mascotaActualizada);
   } catch (error) {

@@ -1,0 +1,32 @@
+.gevt-barra-lateral {
+  width: 250px;
+  height: 100vh;
+  background: #1a3c5e;
+  color: white;
+  padding: 20px;
+  position: fixed;
+}
+
+.gevt-barra-lateral h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.gevt-barra-lateral ul {
+  list-style: none;
+  padding: 0;
+}
+
+.gevt-barra-lateral ul li {
+  margin-bottom: 15px;
+}
+
+.gevt-barra-lateral ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.gevt-barra-lateral ul li a:hover {
+  color: #28a745;
+}

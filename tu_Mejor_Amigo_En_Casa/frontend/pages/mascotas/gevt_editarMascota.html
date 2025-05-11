@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modificar Mascota - gevt</title>
+  <link rel="stylesheet" href="../../css/mascotas/gevt_formularioBase.css">
+</head>
+<body>
+  <div class="contenedor-imagen-gevt">
+    <div class="contenido-vertical-gevt">
+      <div class="barra-superior-gevt">
+        <img src="../../assets/btn-back.svg" alt="Volver" class="btn-superior izquierda" onclick="history.back()">
+        <span class="titulo-centro-gevt">Modificar Mascota</span>
+        <img src="../../assets/btn-close.svg" alt="Cerrar" class="btn-superior derecha" onclick="window.location.href='../../index.html'">
+      </div>
+      <div class="imagen-foto-gevt">
+        <img src="../../assets/photo-lg-0.svg" alt="Foto vacía" id="mascota-foto" class="mascota-foto-img" />
+      </div>
+      <form id="formEditarMascota" class="formulario-gevt">
+        <div class="grupo-formulario-gevt">
+          <input type="text" id="nombre" name="NombreGevt" placeholder="Nombre" required />
+        </div>
+        <div class="grupo-formulario-gevt select-personalizado">
+          <select id="raza" name="idrazasGevt" required>
+            <option value="">Seleccione Raza</option>
+          </select>
+          <img src="../../assets/arrows.svg" class="icono-select">
+        </div>
+        <div class="grupo-formulario-gevt select-personalizado">
+          <select id="categoria" name="idcategoriasGevt" required>
+            <option value="">Seleccione Categoría</option>
+          </select>
+          <img src="../../assets/arrows.svg" class="icono-select">
+        </div>
+                <div class="grupo-formulario-gevt campo-foto-gevt">
+          <label for="foto" class="etiqueta-foto">Subir nueva foto (opcional)</label>
+          <img src="../../assets/icon-camera.svg" alt="Icono cámara" class="icono-camara-foto">
+          <input type="file" id="foto" name="Foto" accept="image/*">
+        </div>
+        <div class="grupo-formulario-gevt select-personalizado">
+          <select id="genero" name="idgeneroGevt" required>
+            <option value="">Seleccione Género</option>
+          </select>
+          <img src="../../assets/arrows.svg" class="icono-select">
+        </div>
+        <button type="submit" class="btn-guardar-img">
+          <img src="../../assets/btn-update.svg" alt="Actualizar">
+        </button>
+        <p id="mensajeError" class="mensaje-error-gevt"></p>
+      </form>
+    </div>
+  </div>
+  <script type="module" src="../../js/mascotas/gevt_editarMascota.js"></script>
+</body>
+</html>
