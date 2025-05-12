@@ -1,13 +1,16 @@
-import { gevtObtenerMascotas, gevtEliminarMascota } from '../api.js';
+import { gevtObtenerMascotas, gevtEliminarMascota, gevtDescargarReporteMascotas, gevtDescargarReporteMascotasPorEstado } from '../api.js';
 
 const BACKEND_URL = 'http://192.168.1.12:3000';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/frontend/index.html';  
+    return;
+  }
+
   const listaMascotas = document.getElementById('listaMascotas');
   const mensajeError = document.getElementById('mensajeError');
-
-  const token = localStorage.getItem('token');
-  if (!token) window.location.href = '../index.html';
 
   // Eventos tactiles para los botones de la barra superior
   const btnVolver = document.querySelector('.btn-superior.izquierda');
@@ -23,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnCerrar) {
     btnCerrar.addEventListener('touchend', (e) => {
       e.preventDefault();
-      window.location.href = '../../index.html';
+      window.location.href = '..//frontend/index.html';
     });
   }
 
@@ -89,6 +92,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       mensajeError.textContent = 'Error al eliminar la mascota: ' + error.message;
       console.error('Error al eliminar:', error);
+    }
+  };
+
+  // Nuevas funciones para reportes
+  window.descargarReporte = async () => {
+    try {
+      await gevtDescargarReporteMascotas();
+    } catch (err) {
+      mensajeError.textContent = 'Error al descargar el reporte: ' + err.message;
+    }
+  };
+
+  window.descargarReportePorEstado = async (estado) => {
+    try {
+      await gevtDescargarReporteMascotasPorEstado(estado);
+    } catch (err) {
+      mensajeError.textContent = 'Error al descargar el reporte: ' + err.message;
     }
   };
 });

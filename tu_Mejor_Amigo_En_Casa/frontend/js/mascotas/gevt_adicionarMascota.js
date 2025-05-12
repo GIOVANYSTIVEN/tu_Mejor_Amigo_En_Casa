@@ -4,7 +4,10 @@ const BACKEND_URL = 'http://192.168.1.12:3000';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
-  if (!token) window.location.href = '../index.html';
+  if (!token) {
+    window.location.href = '/frontend/index.html';  
+    return;
+  }
 
   const mensajeError = document.getElementById('mensajeError');
 

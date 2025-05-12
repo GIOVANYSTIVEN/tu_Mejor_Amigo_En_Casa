@@ -76,7 +76,7 @@ export const actualizarMascotaGevt = async (req, res) => {
       idrazasGevt: parseInt(idrazasGevt),
       idcategoriasGevt: parseInt(idcategoriasGevt),
       idgeneroGevt: parseInt(idgeneroGevt),
-      estado: validarEstado(estado), // Validamos el estado
+      estado: validarEstado(estado),  
     };
 
     if (Foto) dataActualizada.Foto = Foto;

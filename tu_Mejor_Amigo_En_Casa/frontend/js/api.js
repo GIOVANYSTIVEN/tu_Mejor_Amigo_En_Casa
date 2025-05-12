@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://192.168.1.12:3000';  
+const BACKEND_URL = 'http://192.168.1.12:3000';
 
 // Función auxiliar para obtener el token y hacer solicitudes
 const fetchWithToken = async (url, options = {}) => {
@@ -64,7 +64,7 @@ export async function gevtEliminarRaza(id) {
   });
 }
 
-// Categorías
+// Categorias
 export async function gevtObtenerCategorias() {
   return fetchWithToken(`${BACKEND_URL}/api/gevt/categoria`);
 }
@@ -89,7 +89,7 @@ export async function gevtEliminarCategoria(id) {
   });
 }
 
-// Géneros
+// Generos
 export async function gevtObtenerGenero() {
   return fetchWithToken(`${BACKEND_URL}/api/gevt/genero`);
 }
@@ -142,3 +142,78 @@ export async function gevtEliminarMascota(id) {
     method: 'DELETE'
   });
 }
+
+// Reportes
+export const gevtDescargarReporteMascotas = async () => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${BACKEND_URL}/api/gevt/reportes/mascotas`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+    throw new Error('Error al descargar el reporte');
+  }
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'reporte_mascotas.pdf';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+};
+
+export const gevtDescargarReporteMascotasPorEstado = async (estado) => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${BACKEND_URL}/api/gevt/reportes/mascotas/estado?estado=${estado}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+    throw new Error('Error al descargar el reporte');
+  }
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `reporte_mascotas_${estado.toLowerCase()}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+};
+
+// Gestion de imagenes
+export const getImageUrl = (filename) => {
+  if (!filename) return '/default.jpg';
+  const uploadsUrl = `${BACKEND_URL}/uploads/${filename}`;
+  const publicImgUrl = `${BACKEND_URL}/public/img/${filename}`;
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(uploadsUrl);
+    img.onerror = () => {
+      const img2 = new Image();
+      img2.onload = () => resolve(publicImgUrl);
+      img2.onerror = () => resolve('/default.jpg');
+      img2.src = publicImgUrl;
+    };
+    img.src = uploadsUrl;
+  });
+};

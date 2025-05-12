@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graficas/Reportes - gevt</title>
+  <link rel="stylesheet" href="../../css/mascotas/gevt_mascotas.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="contenedor-imagen-gevt">
+    <div class="contenido-vertical-gevt">
+      <div class="barra-superior-gevt">
+        <img src="../../assets/btn-back.svg" alt="Volver" class="btn-superior izquierda" onclick="history.back()">
+        <span class="titulo-centro-gevt">Graficas/Reportes</span>
+        <img src="../../assets/btn-close.svg" alt="Cerrar" class="btn-superior derecha" onclick="window.location.href='../../index.html'">
+      </div>
+        <div class="lista-mascotas" style="padding: 1rem; display: flex; flex-direction: column; align-items: center;">
+        <div class="grupo-formulario-gevt select-personalizado" style="margin-bottom: 1rem;">
+            <select id="tipoSeleccion">
+            <option value="graficas">Gráficas</option>
+            <option value="reportes">Reportes</option>
+            </select>
+            <img src="../../assets/arrows.svg" class="icono-select" />
+        </div>
+        <button id="descargarBtn">Descargar</button>
+        <canvas id="graficaCategorias" width="300" height="200" style="display: block;"></canvas>
+        <canvas id="graficaEstados" width="300" height="200" style="margin-top: 2rem; display: block;"></canvas>
+        </div>
+      <p id="mensajeError" class="mensaje-error-gevt"></p>
+    </div>
+  </div>
+  <script type="module" src="../../js/mascotas/gevt_graficas.js"></script>
+</body>
+</html>
+
