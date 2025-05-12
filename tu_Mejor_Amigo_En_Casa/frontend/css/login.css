@@ -27,7 +27,11 @@ body {
   justify-content: center;
   align-items: flex-end;
 }
-
+input::placeholder {
+  color: rgb(25, 66, 112);
+  width: 234px;
+  text-align: left;
+}
 /* Contenedor del formulario */
 .contenedor-formulario-gevt {
   position: absolute;

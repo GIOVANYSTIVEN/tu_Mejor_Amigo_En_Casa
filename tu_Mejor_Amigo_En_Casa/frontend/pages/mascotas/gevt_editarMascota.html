@@ -6,7 +6,7 @@
   <title>Modificar Mascota - gevt</title>
   <link rel="stylesheet" href="../../css/mascotas/gevt_formularioBase.css">
 </head>
-<body>
+<body page="editar">
   <div class="contenedor-imagen-gevt">
     <div class="contenido-vertical-gevt">
       <div class="barra-superior-gevt">
@@ -33,14 +33,22 @@
           </select>
           <img src="../../assets/arrows.svg" class="icono-select">
         </div>
-                <div class="grupo-formulario-gevt campo-foto-gevt">
-          <label for="foto" class="etiqueta-foto">Subir nueva foto (opcional)</label>
+        <div class="grupo-formulario-gevt campo-foto-gevt">
+          <label for="foto" class="etiqueta-foto">Subir nueva foto </label>
           <img src="../../assets/icon-camera.svg" alt="Icono cámara" class="icono-camara-foto">
           <input type="file" id="foto" name="Foto" accept="image/*">
         </div>
         <div class="grupo-formulario-gevt select-personalizado">
           <select id="genero" name="idgeneroGevt" required>
             <option value="">Seleccione Género</option>
+          </select>
+          <img src="../../assets/arrows.svg" class="icono-select">
+        </div>
+        <div class="grupo-formulario-gevt select-personalizado">
+          <select id="estado" name="estado" required>
+            <option value="">Seleccione Estado</option>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="ADOPTADO">Adoptado</option>
           </select>
           <img src="../../assets/arrows.svg" class="icono-select">
         </div>

@@ -33,10 +33,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
-/* Barra superior con botones y titulo */
+/* Barra superior con botones y título */
 .barra-superior-gevt {
   width: 95%;
   max-width: 340px;
@@ -66,9 +66,10 @@ body {
 .imagen-foto-gevt {
   display: flex;
   justify-content: center;
-  margin: 1rem 0;  
+  margin: 1rem auto;
 }
 
+/* Asegurar que la imagen esté centrada */
 .mascota-foto-img {
   width: 150px;
   height: 150px;
@@ -76,13 +77,15 @@ body {
   object-fit: cover;
   border: 4px solid #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 auto;
 }
 
 /* Formulario */
 .formulario-gevt {
   width: 95%;
   max-width: 340px;
-  margin: 1rem 0;
+  margin: 1rem auto;
 }
 
 .grupo-formulario-gevt {
@@ -115,6 +118,8 @@ body {
 
 .select-personalizado select {
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   padding-right: 2.5rem;
 }
 
@@ -156,7 +161,7 @@ body {
   cursor: pointer;
 }
 
-/* Boton guardar */
+/* Botón guardar */
 .btn-guardar-img {
   margin-top: 1rem;
   border: none;
@@ -164,11 +169,18 @@ body {
   background-color: transparent;
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 340px;
+  transition: opacity 0.3s ease;
 }
 
 .btn-guardar-img img {
   width: 100%;
   max-width: 340px;
+}
+
+.btn-guardar-img:hover {
+  opacity: 0.9;
 }
 
 /* Mensaje de error */

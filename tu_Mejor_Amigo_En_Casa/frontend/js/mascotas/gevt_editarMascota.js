@@ -4,7 +4,10 @@ const BACKEND_URL = 'http://192.168.1.12:3000';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
-  if (!token) window.location.href = '../index.html';
+  if (!token) {
+    window.location.href = '/frontend/index.html';  
+    return;
+  }
 
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
@@ -21,12 +24,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       formData.append('idrazasGevt', document.getElementById('raza').value);
       formData.append('idcategoriasGevt', document.getElementById('categoria').value);
       formData.append('idgeneroGevt', document.getElementById('genero').value);
+      formData.append('estado', document.getElementById('estado').value); // Añadir el estado
       const foto = document.getElementById('foto').files[0];
       if (foto) formData.append('Foto', foto);
 
       try {
         const response = await gevtActualizarMascota(id, formData);
-        console.log('Respuesta de actualizacion:', response);
+        console.log('Respuesta de actualización:', response);
         window.location.href = 'gevt_listarMascotas.html';
       } catch (error) {
         mensajeError.textContent = error.message || 'Error al actualizar la mascota';
@@ -38,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     mensajeError.textContent = 'Error: Formulario no encontrado';
   }
 
-  // Cargar datos en los select y datos de la mascota
   async function gevtCargarSelectsYMascota(id) {
     try {
       const [razas, categorias, generos, mascota] = await Promise.all([
@@ -77,13 +80,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         selectRaza.value = mascota.idrazasGevt || '';
         selectCategoria.value = mascota.idcategoriasGevt || '';
         selectGenero.value = mascota.idgeneroGevt || '';
-
+ 
+        const selectEstado = document.getElementById('estado');
+        selectEstado.value = mascota.estado ? mascota.estado.toUpperCase() : 'PENDIENTE';
+ 
         const mascotaFoto = document.getElementById('mascota-foto');
         if (mascotaFoto) {
           mascotaFoto.src = mascota.Foto ? `${BACKEND_URL}/public/img/${mascota.Foto}` : '../../assets/default.jpg';
           mascotaFoto.alt = `Foto de ${mascota.NombreGevt || 'Mascota'}`;
         }
       }
+
     } catch (error) {
       mensajeError.textContent = 'Error al cargar los selectores o la mascota';
       console.error('Error al cargar datos:', error);
