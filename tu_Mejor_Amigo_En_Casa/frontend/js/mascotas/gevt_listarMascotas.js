@@ -5,14 +5,12 @@ const BACKEND_URL = 'http://192.168.1.12:3000';
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
   if (!token) {
-    window.location.href = '/frontend/index.html';  
+    window.location.href = '/frontend/index.html';
     return;
   }
 
   const listaMascotas = document.getElementById('listaMascotas');
   const mensajeError = document.getElementById('mensajeError');
-
-  // Eventos tactiles para los botones de la barra superior
   const btnVolver = document.querySelector('.btn-superior.izquierda');
   const btnCerrar = document.querySelector('.btn-superior.derecha');
 
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnCerrar) {
     btnCerrar.addEventListener('touchend', (e) => {
       e.preventDefault();
-      window.location.href = '..//frontend/index.html';
+      window.location.href = '../../index.html';
     });
   }
 
@@ -56,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <img src="../../assets/btn-delete.svg" class="icono-accion" alt="Eliminar" onclick="window.gevtEliminarMascota(${m.idmascotasGevt})">
           </div>
         `;
-        // Eventos tactiles para las acciones
+        // Eventos táctiles para las acciones
         const btnVer = elementoMascota.querySelector('img[alt="Ver"]');
         const btnEditar = elementoMascota.querySelector('img[alt="Editar"]');
         const btnEliminar = elementoMascota.querySelector('img[alt="Eliminar"]');
@@ -85,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   window.gevtEliminarMascota = async (id) => {
-    if (!confirm('Estas seguro de eliminar esta mascota?')) return;
+    if (!confirm('¿Estás seguro de eliminar esta mascota?')) return;
     try {
       await gevtEliminarMascota(id);
       await gevtCargarMascotas();

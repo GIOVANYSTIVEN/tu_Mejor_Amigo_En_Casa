@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       formData.append('idrazasGevt', document.getElementById('raza').value);
       formData.append('idcategoriasGevt', document.getElementById('categoria').value);
       formData.append('idgeneroGevt', document.getElementById('genero').value);
-      formData.append('estado', document.getElementById('estado').value); // Añadir el estado
+      formData.append('estado', document.getElementById('estado').value);
+      formData.append('latitude', document.getElementById('latitude').value);
+      formData.append('longitude', document.getElementById('longitude').value);
       const foto = document.getElementById('foto').files[0];
       if (foto) formData.append('Foto', foto);
 

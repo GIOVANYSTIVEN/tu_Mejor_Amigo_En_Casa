@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graficas/Reportes - gevt</title>
-  <link rel="stylesheet" href="../../css/mascotas/gevt_mascotas.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficas/Reportes - gevt</title>
+    <link rel="stylesheet" href="../../css/reportes/gevt_reportes.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="contenedor-imagen-gevt">
-    <div class="contenido-vertical-gevt">
-      <div class="barra-superior-gevt">
-        <img src="../../assets/btn-back.svg" alt="Volver" class="btn-superior izquierda" onclick="history.back()">
-        <span class="titulo-centro-gevt">Graficas/Reportes</span>
-        <img src="../../assets/btn-close.svg" alt="Cerrar" class="btn-superior derecha" onclick="window.location.href='../../index.html'">
-      </div>
-        <div class="lista-mascotas" style="padding: 1rem; display: flex; flex-direction: column; align-items: center;">
-        <div class="grupo-formulario-gevt select-personalizado" style="margin-bottom: 1rem;">
-            <select id="tipoSeleccion">
-            <option value="graficas">Gráficas</option>
-            <option value="reportes">Reportes</option>
-            </select>
-            <img src="../../assets/arrows.svg" class="icono-select" />
+    <div class="contenedor-imagen-gevt">
+        <div class="contenido-vertical-gevt">
+            <div class="barra-superior-gevt">
+                <img src="../../assets/btn-back.svg" alt="Volver" class="btn-superior izquierda" onclick="history.back()">
+                <span class="titulo-centro-gevt">Gráficas/Reportes</span>
+                <img src="../../assets/btn-close.svg" alt="Cerrar" class="btn-superior derecha" onclick="window.location.href='../../index.html'">
+            </div>
+            <div class="lista-mascotas" style="padding: 0 1rem; flex: 1; overflow-y: auto;">
+                <div class="grupo-formulario-gevt select-personalizado" style="margin-bottom: 1rem;">
+                    <select id="tipoSeleccion">
+                        <option value="graficas">Gráficas</option>
+                        <option value="mapa">Mapa</option>
+                        <option value="reportes">Reportes</option>
+                    </select>
+                    <img src="../../assets/arrows.svg" class="icono-select" />
+                </div>
+                <div id="graficasContainer" style="display: none;">
+                    <canvas id="graficaCategorias" style="display: block; margin-bottom: 2rem;"></canvas>
+                    <canvas id="graficaEstados" style="display: block;"></canvas>
+                </div>
+                <div id="mapaContainer" style="display: none;">
+                    <div id="map" class="map"></div>
+                </div>
+                <div id="reportesContainer" style="display: none;">
+                    <button id="vistaPreviaReporteCompleto" class="btn-reporte">Vista Previa Reporte Completo</button>
+                    <button id="vistaPreviaReporteAdoptado" class="btn-reporte">Vista Previa Adoptados</button>
+                    <button id="vistaPreviaReportePendiente" class="btn-reporte">Vista Previa Pendientes</button>
+                    <div id="pdfPreviewContainer" style="display: none;">
+                        <iframe id="pdfPreview" style="width: 100%; max-width: 340px; height: 300px; border: none; border-radius: 20px; margin-top: 1rem;"></iframe>
+                        <button id="descargarReporte" class="btn-reporte" style="margin-top: 1rem;">Descargar PDF</button>
+                    </div>
+                </div>
+            </div>
+            <p id="mensajeError" class="mensaje-error-gevt"></p>
         </div>
-        <button id="descargarBtn">Descargar</button>
-        <canvas id="graficaCategorias" width="300" height="200" style="display: block;"></canvas>
-        <canvas id="graficaEstados" width="300" height="200" style="margin-top: 2rem; display: block;"></canvas>
-        </div>
-      <p id="mensajeError" class="mensaje-error-gevt"></p>
     </div>
-  </div>
-  <script type="module" src="../../js/mascotas/gevt_graficas.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="../../js/mascotas/gevt_graficas.js"></script>
 </body>
 </html>
-

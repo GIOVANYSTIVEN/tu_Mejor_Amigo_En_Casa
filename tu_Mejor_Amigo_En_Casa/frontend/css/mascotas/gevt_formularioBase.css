@@ -1,3 +1,4 @@
+/* css/mascotas/gevt_formularioBase.css */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -159,6 +160,39 @@ body {
   width: 22px;
   height: 22px;
   cursor: pointer;
+}
+
+ 
+.input-personalizado {
+  position: relative;
+}
+
+.input-personalizado input[type="number"] {
+  width: 100%;
+  padding: 0.7rem 2.5rem 0.7rem 1rem;  
+  border: 1px solid #e1e1ec69;
+  border-radius: 50px;
+  font-size: 1rem;
+  background: #e8eaee9f;
+  color: #6084e0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.input-personalizado input[type="number"]:focus {
+  outline: none;
+  border-color: #223A78;
+  box-shadow: 0 0 5px rgba(34, 58, 120, 0.3);
+}
+
+.input-personalizado .icono-input {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  width: 18px;
+  pointer-events: none;
 }
 
 /* Botón guardar */

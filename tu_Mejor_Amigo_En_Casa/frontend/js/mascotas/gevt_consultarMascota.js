@@ -5,7 +5,7 @@ const BACKEND_URL = 'http://192.168.1.12:3000';
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
   if (!token) {
-    window.location.href = '/frontend/index.html';  
+    window.location.href = '/frontend/index.html';
     return;
   }
 
@@ -27,8 +27,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('nombre').textContent = mascota.NombreGevt || 'Sin nombre';
     document.getElementById('raza').textContent = razaMap[mascota.idrazasGevt] || 'Sin raza';
-    document.getElementById('categoria').textContent = categoriaMap[mascota.idcategoriasGevt] || 'Sin categoria';
-    document.getElementById('genero').textContent = generoMap[mascota.idgeneroGevt] || 'Sin genero';
+    document.getElementById('categoria').textContent = categoriaMap[mascota.idcategoriasGevt] || 'Sin categoría';
+    document.getElementById('genero').textContent = generoMap[mascota.idgeneroGevt] || 'Sin género';
+    document.getElementById('estado').textContent = mascota.estado || 'PENDIENTE';
+    document.getElementById('latitude').textContent = mascota.latitude || 'No definida';
+    document.getElementById('longitude').textContent = mascota.longitude || 'No definida';
 
     const mascotaFoto = document.getElementById('mascota-foto');
     if (mascotaFoto) {
@@ -36,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       mascotaFoto.alt = `Foto de ${mascota.NombreGevt || 'Mascota'}`;
     }
   } catch (error) {
-    mensajeError.textContent = 'Error al cargar la mascota';
+    mensajeError.textContent = 'Error al cargar la mascota: ' + error.message;
     console.error('Error al cargar datos:', error);
   }
 });

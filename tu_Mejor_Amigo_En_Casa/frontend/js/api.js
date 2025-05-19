@@ -1,3 +1,4 @@
+// frontend/js/api.js
 const BACKEND_URL = 'http://192.168.1.12:3000';
 
 // Función auxiliar para obtener el token y hacer solicitudes
@@ -143,7 +144,12 @@ export async function gevtEliminarMascota(id) {
   });
 }
 
-// Reportes
+// Reportes - Obtener resumen de estados
+export async function gevtObtenerResumenEstado() {
+  return fetchWithToken(`${BACKEND_URL}/api/gevt/reportes/resumenEstado`);
+}
+
+// Reportes - Descargar PDF
 export const gevtDescargarReporteMascotas = async () => {
   const token = localStorage.getItem('token');
   const response = await fetch(`${BACKEND_URL}/api/gevt/reportes/mascotas`, {
@@ -198,6 +204,47 @@ export const gevtDescargarReporteMascotasPorEstado = async (estado) => {
   a.click();
   a.remove();
   window.URL.revokeObjectURL(url);
+};
+
+// Reportes - Vista previa del PDF (retorna blob para visor)
+export const gevtObtenerReporteMascotasBlob = async () => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${BACKEND_URL}/api/gevt/reportes/mascotas`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+    throw new Error('Error al obtener el reporte');
+  }
+
+  return response.blob();
+};
+
+export const gevtObtenerReporteMascotasPorEstadoBlob = async (estado) => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${BACKEND_URL}/api/gevt/reportes/mascotas/estado?estado=${estado}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+    throw new Error('Error al obtener el reporte');
+  }
+
+  return response.blob();
 };
 
 // Gestion de imagenes

@@ -1,60 +1,85 @@
-import { gevtObtenerRazas, gevtObtenerCategorias, gevtObtenerGenero, gevtCrearMascota } from '../api.js';
-
-const BACKEND_URL = 'http://192.168.1.12:3000';
+import { gevtObtenerMascota, gevtActualizarMascota, gevtObtenerRazas, gevtObtenerCategorias, gevtObtenerGenero } from '../api.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
   if (!token) {
-    window.location.href = '/frontend/index.html';  
+    window.location.href = '../../index.html';
     return;
   }
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+  if (!id) {
+    alert('ID de mascota no proporcionado');
+    window.location.href = 'gevt_listarMascotas.html';
+    return;
+  }
+
+  const formEditarMascota = document.getElementById('formEditarMascota');
   const mensajeError = document.getElementById('mensajeError');
 
-  await gevtCargarSelects();
+  try {
+    const [mascota, razas, categorias, generos] = await Promise.all([
+      gevtObtenerMascota(id),
+      gevtObtenerRazas(),
+      gevtObtenerCategorias(),
+      gevtObtenerGenero(),
+    ]);
 
-  document.getElementById('formAdicionarMascota').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('NombreGevt', document.getElementById('nombre').value);
-    formData.append('idrazasGevt', document.getElementById('raza').value);
-    formData.append('idcategoriasGevt', document.getElementById('categoria').value);
-    formData.append('idgeneroGevt', document.getElementById('genero').value);
-    formData.append('Foto', document.getElementById('foto').files[0]);
+    document.getElementById('nombre').value = mascota.NombreGevt;
+    document.getElementById('latitude').value = mascota.latitude || '';
+    document.getElementById('longitude').value = mascota.longitude || '';
 
-    try {
-      await gevtCrearMascota(formData);
-      window.location.href = 'gevt_listarMascotas.html';
-    } catch (error) {
-      mensajeError.textContent = 'Error al crear la mascota';
-    }
-  });
+    const razaSelect = document.getElementById('raza');
+    razas.forEach(raza => {
+      const option = document.createElement('option');
+      option.value = raza.idrazasGevt;
+      option.textContent = raza.NombreGevt;
+      if (raza.idrazasGevt === mascota.idrazasGevt) option.selected = true;
+      razaSelect.appendChild(option);
+    });
 
-  // Cargar datos en los select
-  async function gevtCargarSelects() {
-    try {
-      const [razas, categorias, generos] = await Promise.all([
-        gevtObtenerRazas(),
-        gevtObtenerCategorias(),
-        gevtObtenerGenero()
-      ]);
+    const categoriaSelect = document.getElementById('categoria');
+    categorias.forEach(categoria => {
+      const option = document.createElement('option');
+      option.value = categoria.idcategoriasGevt;
+      option.textContent = categoria.NombreGevt;
+      if (categoria.idcategoriasGevt === mascota.idcategoriasGevt) option.selected = true;
+      categoriaSelect.appendChild(option);
+    });
 
-      const selectRaza = document.getElementById('raza');
-      razas.forEach(r => {
-        selectRaza.innerHTML += `<option value="${r.idrazasGevt}">${r.NombreGevt}</option>`;
-      });
+    const generoSelect = document.getElementById('genero');
+    generos.forEach(genero => {
+      const option = document.createElement('option');
+      option.value = genero.idgeneroGevt;
+      option.textContent = genero.NombreGevt;
+      if (genero.idgeneroGevt === mascota.idgeneroGevt) option.selected = true;
+      generoSelect.appendChild(option);
+    });
 
-      const selectCategoria = document.getElementById('categoria');
-      categorias.forEach(c => {
-        selectCategoria.innerHTML += `<option value="${c.idcategoriasGevt}">${c.NombreGevt}</option>`;
-      });
+    const estadoSelect = document.getElementById('estado');
+    estadoSelect.value = mascota.estado;
 
-      const selectGenero = document.getElementById('genero');
-      generos.forEach(g => {
-        selectGenero.innerHTML += `<option value="${g.idgeneroGevt}">${g.NombreGevt}</option>`;
-      });
-    } catch (error) {
-      mensajeError.textContent = 'Error al cargar los selectores';
-    }
+    formEditarMascota.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(formEditarMascota);
+      const fotoInput = document.getElementById('foto');
+      if (fotoInput.files.length > 0) {
+        formData.append('Foto', fotoInput.files[0]);
+      }
+
+      try {
+        const response = await gevtActualizarMascota(id, formData);
+        alert('Mascota actualizada exitosamente');
+        window.location.href = 'gevt_listarMascotas.html';
+      } catch (error) {
+        mensajeError.textContent = 'Error al actualizar: ' + error.message;
+        console.error('Error al actualizar:', error);
+      }
+    });
+  } catch (error) {
+    mensajeError.textContent = 'Error al cargar los datos: ' + error.message;
+    console.error('Error:', error);
   }
 });
